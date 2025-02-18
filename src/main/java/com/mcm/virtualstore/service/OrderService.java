@@ -46,4 +46,13 @@ public class OrderService {
         }
         return false;
     }
+
+    public boolean deleteOrder(Long _id) {
+        Optional<Order> orderOptional = orderRepository.findById(_id);
+        if(orderOptional.isPresent()) {
+            orderRepository.deleteById(_id);
+            return true;
+        }
+        return false;
+    }
 }
