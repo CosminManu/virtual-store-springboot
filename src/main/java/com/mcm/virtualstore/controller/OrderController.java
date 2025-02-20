@@ -27,9 +27,12 @@ public class OrderController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Order> getOrderById(@PathVariable Long _id) {     // extracts 'id' from the url path (base url '/orders' + '/{id}')
-        Optional<Order> orderById = orderService.getOrderById(_id);
+        Optional<Order> orderById = orderService.getOrderById(_id);         //Java 8 Optional: if order doesn't exist, return Optional.empty() (avoid NPE)
         return orderById.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
+    //'::' - method reference syntax java 8
+    //return orderById.map(order -> ResponseEntity.ok(order)).orElseGet(() -> ResponseEntity.notFound().build())
+    //equivalent (explicit lambda expr)
 
     @PostMapping
     public ResponseEntity<Order> createOrder(@RequestParam String _customerName){   // extracts 'customerName' from query parameters, no body needed
