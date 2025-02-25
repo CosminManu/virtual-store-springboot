@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController                 //marks class as RESTful API controller
-@RequestMapping("/orders")   //sets base URL
+@RequestMapping("/api/orders")   //sets base URL
 public class OrderController {
     private final OrderService orderService;        // DI dependency injected in the constructor
 
@@ -26,8 +26,8 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrderById(@PathVariable Long _id) {     // extracts 'id' from the url path (base url '/orders' + '/{id}')
-        Optional<Order> orderById = orderService.getOrderById(_id);         //Java 8 Optional: if order doesn't exist, return Optional.empty() (avoid NPE)
+    public ResponseEntity<Order> getOrderById(@PathVariable Long id) {     // extracts 'id' from the url path (base url '/orders' + '/{id}')
+        Optional<Order> orderById = orderService.getOrderById(id);         //Java 8 Optional: if order doesn't exist, return Optional.empty() (avoid NPE)
         return orderById.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
     //'::' - method reference syntax java 8
@@ -41,10 +41,10 @@ public class OrderController {
     }
 
     @PutMapping("/{id}/status")
-    public ResponseEntity<String> updateOrderStatus(@PathVariable Long _id, @RequestParam OrderStatus _status){     //extracts id from url path and status from query params
-        boolean updatedOrder = orderService.updateOrderStatus(_id, _status);
+    public ResponseEntity<String> updateOrderStatus(@PathVariable Long id, @RequestParam OrderStatus status){     //extracts id from url path and status from query params
+        boolean updatedOrder = orderService.updateOrderStatus(id, status);
         if(updatedOrder){
-            return ResponseEntity.ok("Order id:" + _id + " updated successfully with status: "+ _status);
+            return ResponseEntity.ok("Order id:" + id + " updated successfully with status: "+ status);
         } else{
             return ResponseEntity.notFound().build();
         }
@@ -52,10 +52,10 @@ public class OrderController {
     // PUT /orders/1/status?status=SHIPPED
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteOrder(@PathVariable Long _id){
-        boolean deleteOrder = orderService.deleteOrder(_id);
+    public ResponseEntity<String> deleteOrder(@PathVariable Long id){
+        boolean deleteOrder = orderService.deleteOrder(id);
         if(deleteOrder){
-            return ResponseEntity.ok("Order id: " + _id + " deleted successfully");
+            return ResponseEntity.ok("Order id: " + id + " deleted successfully");
         } else {
             return ResponseEntity.notFound().build();
         }
