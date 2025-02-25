@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Order Management</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+<div class="container">
     <h1>Order Management</h1>
 
     <!-- create order -->
-    <form action="#" th:action="@{/orders}" method="post">
+    <form class="order-form" action="#" th:action="@{/orders}" method="post">
         <label>Client name:</label>
         <input type="text" name="customerName" required>
-        <button type="submit">Create Order</button>
+        <button type="submit" class="btn">Create Order</button>
     </form>
 
     <h2>Orders</h2>
-    <table>
+    <table class="order-table">
         <tr>
             <th>ID</th>
             <th>Customer</th>
@@ -34,16 +35,17 @@
                     <select name="status">
                         <option th:each="status : ${statuses}" th:value="${status}"></option>
                     </select>
-                    <button type="submit">Update</button>
+                    <button type="submit" class="btn btn-update">Update</button>
                 </form>
 
                 <!-- delete order -->
                 <form th:action="@{/orders/{id}(id=${order.id})}" method="post">
                     <input type="hidden" name="_method" value="delete">
-                    <button type="submit">Delete</button>
+                    <button type="submit" class="btn btn-delete">Delete</button>
                 </form>
             </td>
         </tr>
     </table>
+</div>
 </body>
 </html>
