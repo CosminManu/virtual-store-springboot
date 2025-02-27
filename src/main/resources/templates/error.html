@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="error-container">
+        <h1>Oops! Something went wrong :( </h1>
+        <p>We couldn't find the page you were looking for.</p>
+        <p><strong>Error code:</strong> <span th:text="${status}"></span></p>
+        <p><strong>Message:</strong> <span th:text="${error}"></span></p>
+        <p><strong>Path:</strong> <span th:text="${path}"></span></p>
+        <a href="/" class="btn btn-home">Go Back Home</a>
+    </div>
+</body>
+</html>
